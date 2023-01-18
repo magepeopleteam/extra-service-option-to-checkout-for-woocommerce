@@ -1,0 +1,55 @@
+/* Section */
+.meps-service-item {
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 6px 0px #bababa;
+    border: 1px solid #cacaca;
+}
+.meps-service-item-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3c3c3c;
+    padding: 0px 10px;
+}
+.meps-service-item-heading p {
+    margin: 0;
+    padding: 5px 0;
+}
+.meps-service-item-heading label {
+    display: inline;
+    margin-left: 5px;
+    color: #fff;
+}
+.meps-service-item-heading h3 {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+.meps-service-item-content {
+    display: none;
+    padding: 10px;
+}
+.meps-service-item-content.meps-show {
+    display: block
+}
+.meps-service-item-heading .meps-service-price {
+    display: block;
+    margin-left: 21px;
+    font-size: 13px;
+    color: #ff5722;
+}
+.meps-service-item-content input,
+.meps-service-item-content select {
+    width: 100%;
+    border: 1px solid #646464;
+}
+.meps-service-item-content .meps-desc {
+    font-size: .8rem;
+    color: #525252;
+}
+.meps-extra-service-container {
+    overflow: hidden;
+    width: 50%;
+}
+/* Section END */

@@ -1,4 +1,6 @@
-
+.meps-show {
+    display: block!important
+}
 .meps-admin-page-header {
     background: #162748;
     border-bottom: 1px solid #959393;
@@ -19,9 +21,7 @@
 }
 
 .meps-admin-setting-page {
-    margin-top: 30px;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin: 0 15px 0;
     overflow: hidden;
 }
 
@@ -131,7 +131,7 @@
 .meps-admin-setting-page .meps-tab-content td.meps-draggable {
     opacity: .3
 }
-.meps-admin-setting-page .meps-tab-content th.meps-add-new-btn {
+.meps-admin-setting-page .meps-form-builder th.meps-add-new-btn {
     width: 12%;
     color: #3bff00;
     background: #673ab7;
@@ -139,48 +139,47 @@
     cursor: pointer;
 }
 
-.meps-admin-setting-page .meps-tab-content table td {
+.meps-admin-setting-page .meps-table table td {
     vertical-align: initial;
 }
-.meps-admin-setting-page .meps-tab-content table tr:last-child {
+.meps-admin-setting-page .meps-table table tr:last-child {
     border-bottom: none;
 }
 
-.meps-admin-setting-page .meps-tab-content label {
+.meps-admin-setting-page .meps-table label {
     line-height: 1.1em;
     display: block;
 }
-.meps-admin-setting-page .meps-tab-content label + span {
+.meps-admin-setting-page .meps-table label + span {
     font-size: .8rem;
     color: #848484;
 }
-.meps-admin-setting-page .meps-tab-content .mep-service-remove {
+.meps-admin-setting-page .meps-table .mep-service-remove {
     background: red;
     border: 1px solid red;
     color: #fff;
-    padding: 2px 6px;
     border-radius: 3px;
 }
 
-.meps-admin-setting-page .meps-tab-content input[type="text"],
-.meps-admin-setting-page .meps-tab-content textarea,
-.meps-admin-setting-page .meps-tab-content select {
+.meps-admin-setting-page .meps-table input[type="text"],
+.meps-admin-setting-page .meps-table textarea,
+.meps-admin-setting-page .meps-table select {
     width: 100%;
     max-width: 100%;
     min-width: 70%;
 }
 
-.meps-admin-setting-page .meps-tab-content .meps-checkbox-label {
+.meps-admin-setting-page .meps-table .meps-checkbox-label {
     vertical-align: middle;
     padding: 5px 0;
 }
 
-.meps-admin-setting-page .meps-tab-content .meps-input-desc {
+.meps-admin-setting-page .meps-table .meps-input-desc {
     display: block;
     color: #787878;
 }
 
-.meps-admin-setting-page .meps-tab-content select option:checked  {
+.meps-admin-setting-page .meps-table select option:checked  {
     background: #bdc4ff;
 }
 
@@ -296,14 +295,18 @@
     border: 1px solid #797979;
 }
 #meps_setting_form {position: relative;}
-#meps_setting_form input[type="submit"] {position: absolute;bottom: 0}
 .meps-form-builder-item-container {
-    width: 60%;
+    width: 100%;
+    box-sizing: border-box;
+    border-left: 1px dashed #656565;
+    padding: 0 5px 5px;
 }
 .meps-form-builder-item-container .meps-field-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+}
+.meps-form-builder-item-container .meps-field-header input {
+    margin-top: 2px;
 }
 .meps-form-builder-item-container .meps-field-group-btn {
     padding: 5px;
@@ -315,13 +318,122 @@
     cursor: pointer;
 }
 .meps-form-builder-inner-container {
+    display: block;
+    position: relative;
+    margin-left: 18px;
+    margin-top: 5px;
+}
+.meps-form-builder-2nd-level-inner-container::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    width: 24px;
+    height: 1px;
+    border-top: 1px dashed #656565;
+}
+.meps-form-field-blueprint {
     display: none;
 }
-/* .meps-form-field-blueprint {
-    display: none;
-} */
-.meps-form-builder-container {
+.meps-form-builder-2nd-level-inner-container {
+    background: #d5d5d5;
+    padding: 5px;
+    border: 1px solid #7f7f7f;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    position: relative;
+}
+.meps-form-builder-2nd-level-inner-container .meps-remove-2nd-level {
+    position: absolute;
+    right: -3px;
+    top: -2px;
+    background: red;
+    color: #fff;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+.meps-form-builder-2nd-level-inner-container .meps-form-builder-2nd-level-inner-top {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
 }
-.meps-form-builder-inner-container input {width: 100%}
+.meps-form-builder-2nd-level-inner-container .meps-field-value-container {
+    display: none;
+}
+.meps-form-builder-2nd-level-inner-container.meps-2nd-level-blueprint {
+    display: none;
+}
+.meps-form-builder-container .meps-left,
+.meps-form-builder-container .meps-right {
+    flex-basis: 45%;
+}
+.meps-form-builder-inner-container p label {
+    display: block;
+    text-align: left;
+}
+.meps-form-builder-inner-container input,
+.meps-form-builder-inner-container select {
+    width: 100%;
+    max-width: 100%;
+}
+.meps-admin-setting-page h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 30px 0 10px;
+}
+.meps-admin-setting-content {
+    margin-top: 30px;
+}
+/* General */
+.btn-no-style {
+    background: transparent;
+    border: none;
+}
+
+
+/* Section */
+.meps-section {
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 6px 0px #bababa;
+    border: 1px solid #cacaca;
+}
+.meps-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffc876;
+    padding: 0px 10px;
+    border-bottom: 1px solid #ffc876;
+}
+.meps-section-heading h3 {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+.meps-section-content {
+    padding: 10px;
+}
+/* Section END */
+/* Table */
+.meps-table {width: 100%}
+.meps-table .meps-td-draggable {width: 5%}
+.meps-table .meps-td-checkbox {width: 5%}
+.meps-table tr {
+    background: #fff;
+}
+.meps-table th,
+.meps-table td {
+    vertical-align: initial;
+    text-align: center;
+}
+.meps-add-field-btn {
+    margin-left: 18px;
+    margin-top: 5px;
+}
+.meps-service-action-btn {
+    padding: 6px 10px;
+}
+/* Table End */

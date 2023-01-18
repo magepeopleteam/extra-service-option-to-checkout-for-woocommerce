@@ -1,6 +1,7 @@
 (function($) {
 
-    // Setting tab
+    $(document).ready(function() {
+        // Setting tab
     $('.meps-tab-a').click(function (e) {
         e.preventDefault();
         $('.meps-tab-a').removeClass('active-a')
@@ -29,13 +30,63 @@
         }
     })
 
+    // Make all check/uncheck
+    $('.meps-table .meps-check input[type="checkbox"]').change(function() {
+        const $this = $(this);
+        const parent = $this.parents('.meps-table')
+        if(this.checked) {
+            parent.find('tbody tr').each(function() {
+                $(this).find('input[type="checkbox"]').prop('checked', true);
+            });
+        } else {
+            parent.find('tbody tr').each(function() {
+                $(this).find('input[type="checkbox"]').prop('checked', false);
+            });
+        }
+    });
+
+    // Change field type
+    $('.meps-service-field-type').change(function() {
+        const value = $(this).val();
+        if(value === 'select' || value === 'radio') {
+            $(this).parents('.meps-form-builder-2nd-level-inner-container').find('.meps-field-value-container').addClass('meps-show')
+        } else {
+            $(this).parents('.meps-form-builder-2nd-level-inner-container').find('.meps-field-value-container').removeClass('meps-show')
+        }
+    })
+
     // Add new service row
     $('.meps-add-new-btn').click(function(e) {
         e.preventDefault();
-        const target = $('.meps-form-builder');
+        const table = $('.meps-form-builder');
         const newService = $('.meps-form-field-blueprint').clone(true);
-        newService.removeClass('meps-form-field-blueprint')
-        newService.insertBefore(target.find('tbody>tr:last'));
+        const trCount = table.find('tbody tr').length;
+        console.log(trCount);
+        newService.find('.meps-service-active-checkbox').attr('name', 'meps[service]['+(trCount - 1)+'][active]');
+        newService.find('.meps-service-title').attr('name', 'meps[service]['+(trCount - 1)+'][title]');
+        newService.find('.meps-service-price').attr('name', 'meps[service]['+(trCount - 1)+'][price]');
+        newService.removeClass('meps-form-field-blueprint');
+        newService.attr('data-index', trCount - 1);
+        newService.insertBefore(table.find('tbody>tr:last'));
+    })
+
+    // Add second level
+    $('.meps-add-field-btn').click(function(e) {
+        e.preventDefault();
+        const serviceEl = $(this).parents('.meps-form-builder-row');
+        const serviceIndex = serviceEl.attr('data-index');
+        const parent = $(this).parents('.meps-form-builder-item-container').find('.meps-form-builder-inner-container');
+        const blueprintEl = parent.find('.meps-2nd-level-blueprint').clone(true);
+        const itemCount = parent.find('.meps-form-builder-2nd-level-container .meps-form-builder-2nd-level-inner-container').length;
+        console.log(serviceIndex, itemCount);
+        blueprintEl.removeClass('meps-2nd-level-blueprint');
+        blueprintEl.find('.meps-service-label').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][label]');
+        blueprintEl.find('.meps-service-placeholder').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][placeholder]');
+        blueprintEl.find('.meps-service-field-type').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][field_type]');
+        blueprintEl.find('.meps-service-required').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][required]');
+        blueprintEl.find('.meps-service-field-values').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][field_values]');
+        parent.find('.meps-form-builder-2nd-level-container').append(blueprintEl);
+        
     })
 
     // remove service row
@@ -43,6 +94,22 @@
         e.preventDefault();
         const $this = $(this);
         $this.parents('tr').remove();
+    })
+
+    // remove 2nd level row
+    $('.meps-remove-2nd-level').click(function(e) {
+        e.preventDefault();
+        const $this = $(this);
+        $this.parents('.meps-form-builder-2nd-level-inner-container').remove();
+    })
+
+    // section extend/collapse
+    $('.meps-section-btn').click(function(e) {
+        e.preventDefault();
+        const $this = $(this);
+        const parent = $this.parents('.meps-section');
+        parent.find('.meps-section-content').slideToggle('fast');
+    })
     })
     
 })(jQuery);
