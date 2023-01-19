@@ -16,6 +16,7 @@ if (!function_exists('meps_add_admin_scripts')) {
     function meps_add_admin_scripts($hook)
     {
         wp_enqueue_style('meps-admin-style', plugin_dir_url(__DIR__) . 'assets/css/admin-setting.css', array());
+        wp_enqueue_style('font-awesome', get_template_directory_uri() . 'youropotionalfolder/font-awesome/css/font-awesome.');
         wp_enqueue_script('meps-admin-script', plugin_dir_url(__DIR__) . '/assets/js/admin-setting.js', array(), time(), true);
         wp_localize_script('meps-admin-script', 'meps_php_vars', array(
             'ajaxurl' => admin_url('admin-ajax.php'),

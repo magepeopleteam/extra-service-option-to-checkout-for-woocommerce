@@ -75,6 +75,10 @@ if (!class_exists('Meps_Admin_Setting')) {
         public function field_content()
         {
             $meps_fields = get_option('meps_fields', array());
+            // $meps_fields = array();
+            $woo_products = wc_get_products(array('orderby' => 'name'));
+            // echo '<pre>'; print_r($products->get_title()); die;
+
             // echo '<pre>';
             // print_r($meps_fields);
         ?>
@@ -112,41 +116,46 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                     <input class="meps-service-title" type="text" name="meps[service][<?php echo $i; ?>][title]" value="<?php echo $field['title'] ?>" placeholder=<?php _e('Service title', 'extra-product-and-service') ?>>
                                                     <input class="meps-service-price" type="text" name="meps[service][<?php echo $i; ?>][price]" value="<?php echo $field['price'] ?>" placeholder="<?php _e('Service price', 'extra-product-and-service') ?>">
                                                 </div>
-                                                <div class="meps-form-builder-inner-container">
+                                                <div class="meps-form-builder-inner-container"> <!-- Field container -->
                                                     <div class="meps-form-builder-2nd-level-container">
-                                                        <?php if ($field['item']) :
-                                                            $j = 0;
-                                                            foreach ($field['item'] as $item) : ?>
-                                                                <div class="meps-form-builder-2nd-level-inner-container">
-                                                                    <span class="meps-remove-2nd-level">X</span>
-                                                                    <div class="meps-form-builder-2nd-level-inner-top">
-                                                                        <p><label for=""><?php _e('Label', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][label]" value="<?php echo $item['label'] ?>" class="meps-service-label"></p>
-                                                                        <p><label for=""><?php _e('Placeholder', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][placeholder]" value="<?php echo $item['placeholder']; ?>" class="meps-service-placeholder"></p>
-                                                                        <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
-                                                                            <select name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][field_type]" class="meps-service-field-type">
-                                                                                <option value="text" <?php echo $item['field_type'] === 'text' ? 'selected' : ''; ?>><?php _e('Text', MEPS_TEXTDOMAIN) ?></option>
-                                                                                <option value="number" <?php echo $item['field_type'] === 'number' ? 'selected' : ''; ?>><?php _e('Number', MEPS_TEXTDOMAIN) ?></option>
-                                                                                <option value="select" <?php echo $item['field_type'] === 'select' ? 'selected' : ''; ?>><?php _e('Select', MEPS_TEXTDOMAIN) ?></option>
-                                                                            </select>
-                                                                        </p>
-                                                                        <p><label for=""><?php _e('Required', MEPS_TEXTDOMAIN) ?></label>
-                                                                            <select name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][required]" class="meps-service-required">
-                                                                                <option value="no" <?php echo $item['required'] === 'no' ? 'selected' : ''; ?>><?php _e('No', MEPS_TEXTDOMAIN) ?></option>
-                                                                                <option value="yes" <?php echo $item['required'] === 'yes' ? 'selected' : ''; ?>><?php _e('Yes', MEPS_TEXTDOMAIN) ?></option>
-                                                                            </select>
-                                                                        </p>
+                                                        <h4>Field</h4>
+                                                        <div class="meps-form-builder-2nd-level-sub-container">
+                                                            <?php if ($field['item']) :
+                                                                $j = 0;
+                                                                foreach ($field['item'] as $item) : ?>
+
+                                                                    <div class="meps-form-builder-2nd-level-inner-container">
+                                                                        <span class="meps-remove-2nd-level"><i class="fa-solid fa-trash"></i></span>
+                                                                        <div class="meps-form-builder-2nd-level-inner-top">
+                                                                            <p><label for=""><?php _e('Label', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][label]" value="<?php echo $item['label'] ?>" class="meps-service-label"></p>
+                                                                            <p><label for=""><?php _e('Placeholder', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][placeholder]" value="<?php echo $item['placeholder']; ?>" class="meps-service-placeholder"></p>
+                                                                            <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
+                                                                                <select name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][field_type]" class="meps-service-field-type">
+                                                                                    <option value="text" <?php echo $item['field_type'] === 'text' ? 'selected' : ''; ?>><?php _e('Text', MEPS_TEXTDOMAIN) ?></option>
+                                                                                    <option value="number" <?php echo $item['field_type'] === 'number' ? 'selected' : ''; ?>><?php _e('Number', MEPS_TEXTDOMAIN) ?></option>
+                                                                                    <option value="select" <?php echo $item['field_type'] === 'select' ? 'selected' : ''; ?>><?php _e('Select', MEPS_TEXTDOMAIN) ?></option>
+                                                                                </select>
+                                                                            </p>
+                                                                            <p><label for=""><?php _e('Required', MEPS_TEXTDOMAIN) ?></label>
+                                                                                <select name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][required]" class="meps-service-required">
+                                                                                    <option value="no" <?php echo $item['required'] === 'no' ? 'selected' : ''; ?>><?php _e('No', MEPS_TEXTDOMAIN) ?></option>
+                                                                                    <option value="yes" <?php echo $item['required'] === 'yes' ? 'selected' : ''; ?>><?php _e('Yes', MEPS_TEXTDOMAIN) ?></option>
+                                                                                </select>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="meps-field-value-container <?php echo ($item['field_type'] === 'select' ? 'meps-show' : '') ?>">
+                                                                            <label for="">Values (for select, radio)</label>
+                                                                            <input type="text" name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][field_values]" value="<?php echo $item['field_values'] ?>" class="meps-service-field-values" placeholder="Separate multiple values using a comma">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="meps-field-value-container <?php echo ($item['field_type'] === 'select' ? 'meps-show' : '') ?>">
-                                                                        <label for="">Values (for select, radio)</label>
-                                                                        <input type="text" name="meps[service][<?php echo $i; ?>][item][<?php echo $j; ?>][field_values]" value="<?php echo $item['field_values'] ?>" class="meps-service-field-values" placeholder="Separate multiple values using a comma">
-                                                                    </div>
-                                                                </div>
-                                                        <?php $j++;
-                                                            endforeach;
-                                                        endif; ?>
-                                                        <!-- Blueprint -->
+
+                                                            <?php $j++;
+                                                                endforeach;
+                                                            endif; ?>
+                                                        </div>
+                                                        <!-- Db Blueprint -->
                                                         <div class="meps-form-builder-2nd-level-inner-container meps-2nd-level-blueprint">
-                                                            <span class="meps-remove-2nd-level">X</span>
+                                                            <span class="meps-remove-2nd-level"><i class="fa-solid fa-trash"></i></span>
                                                             <div class="meps-form-builder-2nd-level-inner-top">
                                                                 <p><label for=""><?php _e('Label', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-label"></p>
                                                                 <p><label for=""><?php _e('Placeholder', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-placeholder"></p>
@@ -168,9 +177,103 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                                 <input type="text" name="" class="meps-service-field-values" placeholder="Separate multiple values using a comma">
                                                             </div>
                                                         </div>
+                                                        <button class="meps-add-field-btn">Add field</button>
                                                     </div>
-                                                </div>
-                                                <button class="meps-add-field-btn">Add field</button>
+                                                </div> <!-- Field container end -->
+
+
+                                                <div class="meps-form-builder-inner-container"> <!-- Condition container -->
+                                                    <div class="meps-form-builder-2nd-level-container meps-condition-container">
+                                                        <h4>Condition</h4>
+                                                        <div class="meps-form-builder-2nd-level-sub-container">
+                                                            <?php if ($field['condition']) :
+                                                                $j = 0;
+                                                                foreach ($field['condition'] as $condition) : ?>
+
+                                                                    <div class="meps-form-builder-2nd-level-inner-container">
+                                                                        <span class="meps-remove-2nd-level"><i class="fa-solid fa-trash"></i></span>
+                                                                        <div class="meps-form-builder-2nd-level-inner-top">
+                                                                            <p>
+                                                                                <label for=""><?php _e('Products', MEPS_TEXTDOMAIN) ?></label>
+                                                                                <select name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][products]" class="meps-service-condition-product">
+                                                                                    <?php if ($woo_products) :
+                                                                                        foreach ($woo_products as $wp) : ?>
+                                                                                            <option value="<?php echo $wp->get_id(); ?>" <?php echo $condition['products'] == $wp->get_id() ? 'selected' : ''; ?>><?php printf("(%s) - %s", $wp->get_sku(), $wp->get_title()); ?></option>
+                                                                                    <?php endforeach;
+                                                                                    endif; ?>
+                                                                                </select>
+                                                                            </p>
+                                                                            <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
+                                                                                <select name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][type]" class="meps-service-condition-type">
+                                                                                    <option value="cart" <?php echo $condition['type'] === 'cart' ? 'selected' : ''; ?>>Cart quantity</option>
+                                                                                    <option value="amount_spent" <?php echo $condition['type'] === 'amount_spent' ? 'selected' : ''; ?>>Amount spent</option>
+                                                                                    <option value="amount_spent_ex_taxes" <?php echo $condition['type'] === 'amount_spent_ex_taxes' ? 'selected' : ''; ?>>Amount spent excluding taxes</option>
+                                                                                    <option value="stock" <?php echo $condition['type'] === 'stock' ? 'selected' : ''; ?>>Stock quantity</option>
+                                                                                    <option value="stock_status" <?php echo $condition['type'] === 'stock_status' ? 'selected' : ''; ?>>Stock status (values: instock, outofstock)</option>
+                                                                                    <option value="weight" <?php echo $condition['type'] === 'weight' ? 'selected' : ''; ?>>Weight</option>
+                                                                                    <option value="height" <?php echo $condition['type'] === 'height' ? 'selected' : ''; ?>>Height</option>
+                                                                                    <option value="length" <?php echo $condition['type'] === 'length' ? 'selected' : ''; ?>>Lenght</option>
+                                                                                    <option value="width" <?php echo $condition['type'] === 'width' ? 'selected' : ''; ?>>Width</option>
+                                                                                    <option value="volume" <?php echo $condition['type'] === 'volume' ? 'selected' : ''; ?>>Volume</option>
+                                                                                </select>
+                                                                            </p>
+                                                                            <p><label for=""><?php _e('Value', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][value]" value="<?php echo $condition['value'] ?>" class="meps-service-condition-value"></p>
+                                                                            <p><label for=""><?php _e('Operator', MEPS_TEXTDOMAIN) ?></label>
+                                                                                <select name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][operator]" class="meps-service-condition-operator">
+                                                                                    <option value="greater_equal" <?php echo $condition['operator'] === 'greater_equal' ? 'selected' : ''; ?>>Greater or equal</option>
+                                                                                    <option value="lesser_equal" <?php echo $condition['operator'] === 'lesser_equal' ? 'selected' : ''; ?>>Lesser or equal</option>
+                                                                                </select>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+
+                                                            <?php $j++;
+                                                                endforeach;
+                                                            endif; ?>
+                                                        </div>
+                                                        <!-- Db Blueprint -->
+                                                        <div class="meps-form-builder-2nd-level-inner-container meps-2nd-level-blueprint">
+                                                            <span class="meps-remove-2nd-level"><i class="fa-solid fa-trash"></i></span>
+                                                            <div class="meps-form-builder-2nd-level-inner-top">
+                                                                <p>
+                                                                    <label for=""><?php _e('Products', MEPS_TEXTDOMAIN) ?></label>
+                                                                    <select name="" class="meps-service-condition-product">
+                                                                        <?php if ($woo_products) :
+                                                                            foreach ($woo_products as $wp) : ?>
+                                                                                <option value="<?php echo $wp->get_id(); ?>"><?php printf("(%s) - %s", $wp->get_sku(), $wp->get_title()); ?></option>
+                                                                        <?php endforeach;
+                                                                        endif; ?>
+                                                                    </select>
+                                                                </p>
+                                                                <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
+                                                                    <select name="" class="meps-service-condition-type">
+                                                                        <option value="cart">Cart quantity</option>
+                                                                        <option value="amount_spent">Amount spent</option>
+                                                                        <option value="amount_spent_ex_taxes">Amount spent excluding taxes</option>
+                                                                        <option value="stock">Stock quantity</option>
+                                                                        <option value="stock_status">Stock status (values: instock, outofstock)</option>
+                                                                        <option value="weight">Weight</option>
+                                                                        <option value="height">Height</option>
+                                                                        <option value="length">Lenght</option>
+                                                                        <option value="width">Width</option>
+                                                                        <option value="volume">Volume</option>
+                                                                    </select>
+                                                                </p>
+                                                                <p><label for=""><?php _e('Value', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-condition-value"></p>
+                                                                <p><label for=""><?php _e('Operator', MEPS_TEXTDOMAIN) ?></label>
+                                                                    <select name="" class="meps-service-condition-operator">
+                                                                        <option value="greater_equal">Greater or equal</option>
+                                                                        <option value="lesser_equal">Lesser or equal</option>
+                                                                    </select>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <button class="meps-add-field-btn">Add field</button>
+                                                    </div>
+                                                </div> <!-- Condition container end -->
+
+
+
                                             </div>
                                         </td>
                                         <td>
@@ -195,36 +298,84 @@ if (!class_exists('Meps_Admin_Setting')) {
                                             <input class="meps-service-title" type="text" name="" placeholder="<?php _e('Service title', 'extra-product-and-service') ?>">
                                             <input class="meps-service-price" type="text" name="" placeholder="<?php _e('Service price', 'extra-product-and-service') ?>">
                                         </div>
-                                        <div class="meps-form-builder-inner-container">
+                                        <div class="meps-form-builder-inner-container"> <!-- Field container -->
                                             <div class="meps-form-builder-2nd-level-container">
-                                                <div class="meps-form-builder-2nd-level-inner-container meps-2nd-level-blueprint">
-                                                    <span class="meps-remove-2nd-level">X</span>
-                                                    <div class="meps-form-builder-2nd-level-inner-top">
-                                                        <p><label for=""><?php _e('Label', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-label">
-                                                        </p>
-                                                        <p><label for=""><?php _e('Placeholder', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-placeholder"></p>
-                                                        <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
-                                                            <select name="" class="meps-service-field-type">
-                                                                <option value="text"><?php _e('Text', MEPS_TEXTDOMAIN) ?></option>
-                                                                <option value="number"><?php _e('Number', MEPS_TEXTDOMAIN) ?></option>
-                                                                <option value="select"><?php _e('Select', MEPS_TEXTDOMAIN) ?></option>
-                                                            </select>
-                                                        </p>
-                                                        <p><label for=""><?php _e('Required', MEPS_TEXTDOMAIN) ?></label>
-                                                            <select name="" class="meps-service-required">
-                                                                <option value="no"><?php _e('No', MEPS_TEXTDOMAIN) ?></option>
-                                                                <option value="yes"><?php _e('Yes', MEPS_TEXTDOMAIN) ?></option>
-                                                            </select>
-                                                        </p>
-                                                    </div>
-                                                    <div class="meps-field-value-container">
-                                                        <label for="">Values (for select, radio)</label>
-                                                        <input type="text" name="" class="meps-service-field-values" placeholder="Separate multiple values using a comma">
+                                                <h4>Field</h4>
+                                                <div class="meps-form-builder-2nd-level-sub-container">
+                                                    <div class="meps-form-builder-2nd-level-inner-container meps-2nd-level-blueprint">
+                                                        <span class="meps-remove-2nd-level"><i class="fa-solid fa-trash"></i></span>
+                                                        <div class="meps-form-builder-2nd-level-inner-top">
+                                                            <p><label for=""><?php _e('Label', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-label">
+                                                            </p>
+                                                            <p><label for=""><?php _e('Placeholder', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-placeholder"></p>
+                                                            <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
+                                                                <select name="" class="meps-service-field-type">
+                                                                    <option value="text"><?php _e('Text', MEPS_TEXTDOMAIN) ?></option>
+                                                                    <option value="number"><?php _e('Number', MEPS_TEXTDOMAIN) ?></option>
+                                                                    <option value="select"><?php _e('Select', MEPS_TEXTDOMAIN) ?></option>
+                                                                </select>
+                                                            </p>
+                                                            <p><label for=""><?php _e('Required', MEPS_TEXTDOMAIN) ?></label>
+                                                                <select name="" class="meps-service-required">
+                                                                    <option value="no"><?php _e('No', MEPS_TEXTDOMAIN) ?></option>
+                                                                    <option value="yes"><?php _e('Yes', MEPS_TEXTDOMAIN) ?></option>
+                                                                </select>
+                                                            </p>
+                                                        </div>
+                                                        <div class="meps-field-value-container">
+                                                            <label for="">Values (for select, radio)</label>
+                                                            <input type="text" name="" class="meps-service-field-values" placeholder="Separate multiple values using a comma">
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <button class="meps-add-field-btn">Add field</button>
                                             </div>
+                                        </div> <!-- Field container end -->
+
+                                        <div class="meps-form-builder-inner-container">
+                                            <div class="meps-form-builder-2nd-level-container meps-condition-container"> <!-- Condition container -->
+                                                <h4>Condition</h4>
+                                                <div class="meps-form-builder-2nd-level-sub-container">
+                                                    <div class="meps-form-builder-2nd-level-inner-container meps-2nd-level-blueprint">
+                                                        <span class="meps-remove-2nd-level"><i class="fa-solid fa-trash"></i></span>
+                                                        <div class="meps-form-builder-2nd-level-inner-top">
+                                                            <p>
+                                                                <label for=""><?php _e('Products', MEPS_TEXTDOMAIN) ?></label>
+                                                                <select name="" class="meps-service-condition-product">
+                                                                    <?php if ($woo_products) :
+                                                                        foreach ($woo_products as $wp) : ?>
+                                                                            <option value="<?php echo $wp->get_id() ?>"><?php printf("(%s) - %s", $wp->get_sku(), $wp->get_title()); ?></option>
+                                                                    <?php endforeach;
+                                                                    endif; ?>
+                                                                </select>
+                                                            </p>
+                                                            <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
+                                                                <select name="" class="meps-service-condition-type">
+                                                                    <option value="cart">Cart quantity</option>
+                                                                    <option value="amount_spent">Amount spent</option>
+                                                                    <option value="amount_spent_ex_taxes">Amount spent excluding taxes</option>
+                                                                    <option value="stock">Stock quantity</option>
+                                                                    <option value="stock_status">Stock status (values: instock, outofstock)</option>
+                                                                    <option value="weight">Weight</option>
+                                                                    <option value="height">Height</option>
+                                                                    <option value="length">Lenght</option>
+                                                                    <option value="width">Width</option>
+                                                                    <option value="volume">Volume</option>
+                                                                </select>
+                                                            </p>
+                                                            <p><label for=""><?php _e('Value', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-condition-value"></p>
+                                                            <p><label for=""><?php _e('Operator', MEPS_TEXTDOMAIN) ?></label>
+                                                                <select name="" class="meps-service-condition-operator">
+                                                                    <option value="greater_equal">Greater or equal</option>
+                                                                    <option value="lesser_equal">Lesser or equal</option>
+                                                                </select>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="meps-add-field-btn">Add condition</button>
+                                            </div> <!-- Condition container end -->
                                         </div>
-                                        <button class="meps-add-field-btn">Add field</button>
                                     </div>
                                 </td>
                                 <td>

@@ -75,17 +75,22 @@
         e.preventDefault();
         const serviceEl = $(this).parents('.meps-form-builder-row');
         const serviceIndex = serviceEl.attr('data-index');
-        const parent = $(this).parents('.meps-form-builder-item-container').find('.meps-form-builder-inner-container');
+        const parent = $(this).parents('.meps-form-builder-2nd-level-container');
         const blueprintEl = parent.find('.meps-2nd-level-blueprint').clone(true);
-        const itemCount = parent.find('.meps-form-builder-2nd-level-container .meps-form-builder-2nd-level-inner-container').length;
+        const itemCount = parent.find('.meps-form-builder-2nd-level-sub-container .meps-form-builder-2nd-level-inner-container').length;
         console.log(serviceIndex, itemCount);
         blueprintEl.removeClass('meps-2nd-level-blueprint');
-        blueprintEl.find('.meps-service-label').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][label]');
-        blueprintEl.find('.meps-service-placeholder').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][placeholder]');
-        blueprintEl.find('.meps-service-field-type').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][field_type]');
-        blueprintEl.find('.meps-service-required').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][required]');
-        blueprintEl.find('.meps-service-field-values').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount-1)+'][field_values]');
-        parent.find('.meps-form-builder-2nd-level-container').append(blueprintEl);
+        blueprintEl.find('.meps-service-label').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount)+'][label]');
+        blueprintEl.find('.meps-service-placeholder').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount)+'][placeholder]');
+        blueprintEl.find('.meps-service-field-type').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount)+'][field_type]');
+        blueprintEl.find('.meps-service-required').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount)+'][required]');
+        blueprintEl.find('.meps-service-field-values').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount)+'][field_values]');
+
+        blueprintEl.find('.meps-service-condition-product').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][products]');
+        blueprintEl.find('.meps-service-condition-type').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][type]');
+        blueprintEl.find('.meps-service-condition-value').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][value]');
+        blueprintEl.find('.meps-service-condition-operator').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][operator]');
+        parent.find('.meps-form-builder-2nd-level-sub-container').append(blueprintEl);
         
     })
 
