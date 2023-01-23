@@ -86,7 +86,7 @@
         blueprintEl.find('.meps-service-required').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount)+'][required]');
         blueprintEl.find('.meps-service-field-values').attr('name', 'meps[service]['+(serviceIndex)+'][item]['+(itemCount)+'][field_values]');
 
-        blueprintEl.find('.meps-service-condition-product').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][products]');
+        blueprintEl.find('.meps-service-condition-product').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][products][]');
         blueprintEl.find('.meps-service-condition-type').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][type]');
         blueprintEl.find('.meps-service-condition-value').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][value]');
         blueprintEl.find('.meps-service-condition-operator').attr('name', 'meps[service]['+(serviceIndex)+'][condition]['+(itemCount)+'][operator]');

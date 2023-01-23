@@ -153,7 +153,7 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                                 endforeach;
                                                             endif; ?>
                                                         </div>
-                                                        <!-- Db Blueprint -->
+                                                        <!-- Db item Blueprint -->
                                                         <div class="meps-form-builder-2nd-level-inner-container meps-2nd-level-blueprint">
                                                             <span class="meps-remove-2nd-level"><i class="fa-solid fa-trash"></i></span>
                                                             <div class="meps-form-builder-2nd-level-inner-top">
@@ -195,26 +195,26 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                                         <div class="meps-form-builder-2nd-level-inner-top">
                                                                             <p>
                                                                                 <label for=""><?php _e('Products', MEPS_TEXTDOMAIN) ?></label>
-                                                                                <select name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][products]" class="meps-service-condition-product">
+                                                                                <select name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][products][]" class="meps-service-condition-product" multiple>
                                                                                     <?php if ($woo_products) :
                                                                                         foreach ($woo_products as $wp) : ?>
-                                                                                            <option value="<?php echo $wp->get_id(); ?>" <?php echo $condition['products'] == $wp->get_id() ? 'selected' : ''; ?>><?php printf("(%s) - %s", $wp->get_sku(), $wp->get_title()); ?></option>
+                                                                                            <option value="<?php echo $wp->get_id(); ?>" <?php echo in_array($wp->get_id(), $condition['products']) ? 'selected' : ''; ?>><?php printf("(%s) - %s", $wp->get_sku(), $wp->get_title()); ?></option>
                                                                                     <?php endforeach;
                                                                                     endif; ?>
                                                                                 </select>
                                                                             </p>
                                                                             <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
                                                                                 <select name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][type]" class="meps-service-condition-type">
-                                                                                    <option value="cart" <?php echo $condition['type'] === 'cart' ? 'selected' : ''; ?>>Cart quantity</option>
+                                                                                    <option value="cart_quantity" <?php echo $condition['type'] === 'cart' ? 'selected' : ''; ?>>Cart quantity</option>
                                                                                     <option value="amount_spent" <?php echo $condition['type'] === 'amount_spent' ? 'selected' : ''; ?>>Amount spent</option>
                                                                                     <option value="amount_spent_ex_taxes" <?php echo $condition['type'] === 'amount_spent_ex_taxes' ? 'selected' : ''; ?>>Amount spent excluding taxes</option>
-                                                                                    <option value="stock" <?php echo $condition['type'] === 'stock' ? 'selected' : ''; ?>>Stock quantity</option>
-                                                                                    <option value="stock_status" <?php echo $condition['type'] === 'stock_status' ? 'selected' : ''; ?>>Stock status (values: instock, outofstock)</option>
-                                                                                    <option value="weight" <?php echo $condition['type'] === 'weight' ? 'selected' : ''; ?>>Weight</option>
-                                                                                    <option value="height" <?php echo $condition['type'] === 'height' ? 'selected' : ''; ?>>Height</option>
-                                                                                    <option value="length" <?php echo $condition['type'] === 'length' ? 'selected' : ''; ?>>Lenght</option>
-                                                                                    <option value="width" <?php echo $condition['type'] === 'width' ? 'selected' : ''; ?>>Width</option>
-                                                                                    <option value="volume" <?php echo $condition['type'] === 'volume' ? 'selected' : ''; ?>>Volume</option>
+                                                                                    <!-- <option value="stock" <?php //echo $condition['type'] === 'stock' ? 'selected' : ''; ?>>Stock quantity</option>
+                                                                                    <option value="stock_status" <?php //echo $condition['type'] === 'stock_status' ? 'selected' : ''; ?>>Stock status (values: instock, outofstock)</option>
+                                                                                    <option value="weight" <?php //echo $condition['type'] === 'weight' ? 'selected' : ''; ?>>Weight</option>
+                                                                                    <option value="height" <?php //echo $condition['type'] === 'height' ? 'selected' : ''; ?>>Height</option>
+                                                                                    <option value="length" <?php //echo $condition['type'] === 'length' ? 'selected' : ''; ?>>Lenght</option>
+                                                                                    <option value="width" <?php //echo $condition['type'] === 'width' ? 'selected' : ''; ?>>Width</option>
+                                                                                    <option value="volume" <?php //echo $condition['type'] === 'volume' ? 'selected' : ''; ?>>Volume</option> -->
                                                                                 </select>
                                                                             </p>
                                                                             <p><label for=""><?php _e('Value', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][value]" value="<?php echo $condition['value'] ?>" class="meps-service-condition-value"></p>
@@ -237,7 +237,7 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                             <div class="meps-form-builder-2nd-level-inner-top">
                                                                 <p>
                                                                     <label for=""><?php _e('Products', MEPS_TEXTDOMAIN) ?></label>
-                                                                    <select name="" class="meps-service-condition-product">
+                                                                    <select name="" class="meps-service-condition-product" multiple>
                                                                         <?php if ($woo_products) :
                                                                             foreach ($woo_products as $wp) : ?>
                                                                                 <option value="<?php echo $wp->get_id(); ?>"><?php printf("(%s) - %s", $wp->get_sku(), $wp->get_title()); ?></option>
@@ -247,16 +247,16 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                                 </p>
                                                                 <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
                                                                     <select name="" class="meps-service-condition-type">
-                                                                        <option value="cart">Cart quantity</option>
+                                                                        <option value="cart_quantity">Cart quantity</option>
                                                                         <option value="amount_spent">Amount spent</option>
                                                                         <option value="amount_spent_ex_taxes">Amount spent excluding taxes</option>
-                                                                        <option value="stock">Stock quantity</option>
+                                                                        <!-- <option value="stock">Stock quantity</option>
                                                                         <option value="stock_status">Stock status (values: instock, outofstock)</option>
                                                                         <option value="weight">Weight</option>
                                                                         <option value="height">Height</option>
                                                                         <option value="length">Lenght</option>
                                                                         <option value="width">Width</option>
-                                                                        <option value="volume">Volume</option>
+                                                                        <option value="volume">Volume</option> -->
                                                                     </select>
                                                                 </p>
                                                                 <p><label for=""><?php _e('Value', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-condition-value"></p>
@@ -341,7 +341,7 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                         <div class="meps-form-builder-2nd-level-inner-top">
                                                             <p>
                                                                 <label for=""><?php _e('Products', MEPS_TEXTDOMAIN) ?></label>
-                                                                <select name="" class="meps-service-condition-product">
+                                                                <select name="" class="meps-service-condition-product" multiple>
                                                                     <?php if ($woo_products) :
                                                                         foreach ($woo_products as $wp) : ?>
                                                                             <option value="<?php echo $wp->get_id() ?>"><?php printf("(%s) - %s", $wp->get_sku(), $wp->get_title()); ?></option>
@@ -351,16 +351,16 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                             </p>
                                                             <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
                                                                 <select name="" class="meps-service-condition-type">
-                                                                    <option value="cart">Cart quantity</option>
+                                                                    <option value="cart_quantity">Cart quantity</option>
                                                                     <option value="amount_spent">Amount spent</option>
                                                                     <option value="amount_spent_ex_taxes">Amount spent excluding taxes</option>
-                                                                    <option value="stock">Stock quantity</option>
+                                                                    <!-- <option value="stock">Stock quantity</option>
                                                                     <option value="stock_status">Stock status (values: instock, outofstock)</option>
                                                                     <option value="weight">Weight</option>
                                                                     <option value="height">Height</option>
                                                                     <option value="length">Lenght</option>
                                                                     <option value="width">Width</option>
-                                                                    <option value="volume">Volume</option>
+                                                                    <option value="volume">Volume</option> -->
                                                                 </select>
                                                             </p>
                                                             <p><label for=""><?php _e('Value', MEPS_TEXTDOMAIN) ?></label> <input type="text" name="" class="meps-service-condition-value"></p>

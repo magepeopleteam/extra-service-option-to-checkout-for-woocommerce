@@ -21,7 +21,7 @@ if (!class_exists('Meps_Admin_Order_Detail')) {
         {
             $order_extra_service = get_post_meta($post->ID, '_meps_services', true) ? maybe_unserialize(get_post_meta($post->ID, '_meps_services', true)) : array();
 
-            echo '<pre>'; print_r($order_extra_service);
+            // echo '<pre>'; print_r($order_extra_service);
 
 ?>
             <style type="text/css">
