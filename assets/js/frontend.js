@@ -3,7 +3,7 @@
     $(document).ready(function() {
 
         // Service checkbox change
-        $('.meps-service-item-heading input[type="checkbox"]').change(function() {
+        $(document).on('change', '.meps-service-item-heading input[type="checkbox"]', function() {
             const $this = $(this);
             const parent = $this.parents('.meps-service-item')
             if(this.checked) {
@@ -11,7 +11,6 @@
             } else {
                 parent.find('.meps-service-item-content').hide();
             }
-            console.log($this.val());
 
             // call ajax for data changing
             $.ajax({

@@ -9,6 +9,8 @@ if (!class_exists('Meps_Helper')) {
     {
         public function meps_cart_meet_the_service_condition($meps_conditions = array())
         {
+            if(!$meps_conditions) return true;
+
             $condition_meet = false;
             $cart = WC()->cart->cart_contents;
             $meps_conditions = !$meps_conditions ? get_option('meps_fields', array()) : $meps_conditions;
@@ -42,13 +44,13 @@ if (!class_exists('Meps_Helper')) {
                                             break 2;
                                         }
                                         break;
-                                    case 'amount_spent':
+                                    case 'cart_total':
                                         if(!$this->check_by_cart_total($condition)) {
                                             $meet = false;
                                             break 2;
                                         }
                                         break;
-                                    case 'amount_spent_ex_taxes':
+                                    case 'cart_total_ex_taxes':
                                         if (!$this->check_by_cart_total_ex_tax($condition)) {
                                             $meet = false;
                                             break 2;

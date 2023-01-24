@@ -10,6 +10,8 @@ if (!class_exists('Meps_Admin_Order_Detail')) {
         public function __construct()
         {
             add_action('add_meta_boxes', array($this, 'meps_order_meta_box'));
+
+            add_action('woocommerce_admin_order_totals_after_tax', [$this, 'extra_data_dispaly_table_tr'], 20, 1);
         }
 
         function meps_order_meta_box()
@@ -71,6 +73,29 @@ if (!class_exists('Meps_Admin_Order_Detail')) {
                 <?php endforeach;
                 endif; ?>
             </div>
+
+        <?php
+        }
+
+        public function extra_data_dispaly_table_tr($order_id)
+        {
+            $order_extra_service = get_post_meta($order_id, '_meps_services', true) ? maybe_unserialize(get_post_meta($order_id, '_meps_services', true)) : array();
+
+            $total_es_price = 0;
+            if ($order_extra_service['service']) :
+                foreach ($order_extra_service['service'] as $service) :
+                    $total_es_price += $service['price'];
+                endforeach;
+            endif;
+
+        ?>
+            <tr>
+                <td class="label">Extra service price:</td>
+                <td width="1%"></td>
+                <td class="total"> 
+                    <?php echo wc_price($total_es_price); ?>
+                </td>
+            </tr>
 
 <?php
         }

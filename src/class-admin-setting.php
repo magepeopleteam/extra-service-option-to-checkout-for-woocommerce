@@ -96,7 +96,9 @@ if (!class_exists('Meps_Admin_Setting')) {
                         <thead>
                             <tr style="border:1px solid #efefef;">
                                 <th class="meps-draggable"></th>
-                                <th class="meps-check"><input type="checkbox" name="" id=""></th>
+                                <th class="meps-check">
+                                    <!-- <input type="checkbox" name="" id=""> -->
+                                </th>
                                 <th><?php _e('Service', 'extra-product-and-service'); ?></th>
                                 <th class="meps-add-new-btn" style="width: 12%"><i class="fa-solid fa-plus"></i> <?php _e('Add new service', MEPS_TEXTDOMAIN) ?></th>
                             </tr>
@@ -206,8 +208,8 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                                             <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
                                                                                 <select name="meps[service][<?php echo $i; ?>][condition][<?php echo $j; ?>][type]" class="meps-service-condition-type">
                                                                                     <option value="cart_quantity" <?php echo $condition['type'] === 'cart' ? 'selected' : ''; ?>>Cart quantity</option>
-                                                                                    <option value="amount_spent" <?php echo $condition['type'] === 'amount_spent' ? 'selected' : ''; ?>>Amount spent</option>
-                                                                                    <option value="amount_spent_ex_taxes" <?php echo $condition['type'] === 'amount_spent_ex_taxes' ? 'selected' : ''; ?>>Amount spent excluding taxes</option>
+                                                                                    <option value="cart_total" <?php echo $condition['type'] === 'cart_total' ? 'selected' : ''; ?>>Cart total</option>
+                                                                                    <option value="cart_total_ex_taxes" <?php echo $condition['type'] === 'cart_total_ex_taxes' ? 'selected' : ''; ?>>Cart total excluding taxes</option>
                                                                                     <!-- <option value="stock" <?php //echo $condition['type'] === 'stock' ? 'selected' : ''; ?>>Stock quantity</option>
                                                                                     <option value="stock_status" <?php //echo $condition['type'] === 'stock_status' ? 'selected' : ''; ?>>Stock status (values: instock, outofstock)</option>
                                                                                     <option value="weight" <?php //echo $condition['type'] === 'weight' ? 'selected' : ''; ?>>Weight</option>
@@ -248,8 +250,8 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                                 <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
                                                                     <select name="" class="meps-service-condition-type">
                                                                         <option value="cart_quantity">Cart quantity</option>
-                                                                        <option value="amount_spent">Amount spent</option>
-                                                                        <option value="amount_spent_ex_taxes">Amount spent excluding taxes</option>
+                                                                        <option value="cart_total">Cart total</option>
+                                                                        <option value="cart_total_ex_taxes">Cart total excluding taxes</option>
                                                                         <!-- <option value="stock">Stock quantity</option>
                                                                         <option value="stock_status">Stock status (values: instock, outofstock)</option>
                                                                         <option value="weight">Weight</option>
@@ -352,8 +354,8 @@ if (!class_exists('Meps_Admin_Setting')) {
                                                             <p><label for=""><?php _e('Type', MEPS_TEXTDOMAIN) ?></label>
                                                                 <select name="" class="meps-service-condition-type">
                                                                     <option value="cart_quantity">Cart quantity</option>
-                                                                    <option value="amount_spent">Amount spent</option>
-                                                                    <option value="amount_spent_ex_taxes">Amount spent excluding taxes</option>
+                                                                    <option value="cart_total">Cart total</option>
+                                                                    <option value="cart_total_ex_taxes">Cart total excluding taxes</option>
                                                                     <!-- <option value="stock">Stock quantity</option>
                                                                     <option value="stock_status">Stock status (values: instock, outofstock)</option>
                                                                     <option value="weight">Weight</option>

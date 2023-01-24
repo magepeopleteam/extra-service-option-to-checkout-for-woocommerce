@@ -51,6 +51,7 @@ if (!class_exists('Meps_Checkout_Service')) {
             // echo '<pre>'; print_r($meps_fields); die;
             $meps_form_builder = new Meps_Form_Builder;
             $meps_service_session_arr = wc()->session->get('meps_services') ?: array();
+            $has_service_in_session = $meps_service_session_arr ? true : false;
             // wc()->session->set('meps_services', '');
             // if(wc()->session->get('meps_services')) {
             //     echo '<pre>'; print_r(wc()->session->get('meps_services'));
@@ -76,13 +77,13 @@ if (!class_exists('Meps_Checkout_Service')) {
                                         <input type="hidden" name="meps_session[service][<?php echo $i ?>][price]" value="<?php echo $field['price'] ?>">
                                         <input type="hidden" name="meps_session[service][<?php echo $i ?>][id]" value="<?php echo $field['id'] ?>">
                                         <p>
-                                            <input type="checkbox" name="" <?php echo in_array($field, $meps_service_session_arr) ? 'checked' : '' ?> data-meps-service-id="<?php echo $field['id'] ?>"> <label for=""><?php echo $field['title'] ?></label>
+                                            <input type="checkbox" name="" <?php echo $meps_service_session_arr ?( in_array($field, $meps_service_session_arr) ? 'checked' : '') : '' ?> data-meps-service-id="<?php echo $field['id'] ?>"> <label for=""><?php echo $field['title'] ?></label>
                                             <span class="meps-service-price" data-meps-service-price="<?php echo $field['price'] ?>">Add +<?php echo wc_price($field['price']) ?></span>
                                         </p>
                                     </div>
                                 </div>
 
-                                <div class="meps-service-item-content <?php echo in_array($field, $meps_service_session_arr) ? 'meps-show' : '' ?>">
+                                <div class="meps-service-item-content <?php echo $has_service_in_session ? (in_array($field, $meps_service_session_arr) ? 'meps-show' : '') : '' ?>">
                                     <?php if ($field['item']) :
                                         $j = 0;
                                         foreach ($field['item'] as $item) :

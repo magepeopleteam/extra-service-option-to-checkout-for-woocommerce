@@ -31,19 +31,19 @@
     })
 
     // Make all check/uncheck
-    $('.meps-table .meps-check input[type="checkbox"]').change(function() {
-        const $this = $(this);
-        const parent = $this.parents('.meps-table')
-        if(this.checked) {
-            parent.find('tbody tr').each(function() {
-                $(this).find('input[type="checkbox"]').prop('checked', true);
-            });
-        } else {
-            parent.find('tbody tr').each(function() {
-                $(this).find('input[type="checkbox"]').prop('checked', false);
-            });
-        }
-    });
+    // $('.meps-table .meps-check input[type="checkbox"]').change(function() {
+    //     const $this = $(this);
+    //     const parent = $this.parents('.meps-table')
+    //     if(this.checked) {
+    //         parent.find('tbody tr').each(function() {
+    //             $(this).find('input[type="checkbox"]').prop('checked', true);
+    //         });
+    //     } else {
+    //         parent.find('tbody tr').each(function() {
+    //             $(this).find('input[type="checkbox"]').prop('checked', false);
+    //         });
+    //     }
+    // });
 
     // Change field type
     $('.meps-service-field-type').change(function() {
