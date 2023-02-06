@@ -23,6 +23,7 @@ if (!class_exists('Meps_Checkout_Service')) {
             add_filter('woocommerce_get_order_item_totals', array($this, 'add_service_row_in_order_table'), 10, 2);
 
             add_action('wp_ajax_meps_change_service_checkbox', array($this, 'meps_change_service_checkbox'));
+            add_action('wp_ajax_nopriv_meps_change_service_checkbox', array($this, 'meps_change_service_checkbox'));
         }
 
         public function save_extra_service_data()
