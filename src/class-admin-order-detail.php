@@ -1,105 +1,110 @@
 <?php
-if (!defined('ABSPATH')) {
-    die;
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
 } // Cannot access pages directly.
 
 
-if (!class_exists('Meps_Admin_Order_Detail')) {
-    class Meps_Admin_Order_Detail
-    {
-        public function __construct()
-        {
-            add_action('add_meta_boxes', array($this, 'meps_order_meta_box'));
+if ( ! class_exists( 'Meps_Admin_Order_Detail' ) ) {
+	/**
+	 * Class Meps_Admin_Order_Detail
+	 */
+	class Meps_Admin_Order_Detail {
 
-            add_action('woocommerce_admin_order_totals_after_tax', [$this, 'extra_data_dispaly_table_tr'], 20, 1);
-        }
+		public function __construct() {
+			add_action( 'add_meta_boxes', array( $this, 'meps_order_meta_box' ) );
 
-        function meps_order_meta_box()
-        {
-            add_meta_box('meps_order_detail', 'Extra Service', array($this, 'show_in_admin_order_detail'), 'shop_order', 'advanced', 'high');
-        }
+			add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'extra_data_dispaly_table_tr' ), 20, 1 );
+		}
 
-        public function show_in_admin_order_detail($post)
-        {
-            $order_extra_service = get_post_meta($post->ID, '_meps_services', true) ? maybe_unserialize(get_post_meta($post->ID, '_meps_services', true)) : array();
+		function meps_order_meta_box() {
+			add_meta_box( 'meps_order_detail', 'Extra Service', array( $this, 'show_in_admin_order_detail' ), 'shop_order', 'advanced', 'high' );
+		}
 
-            // echo '<pre>'; print_r($order_extra_service);
+		public function show_in_admin_order_detail( $post ) {
+			$order_extra_service = get_post_meta( $post->ID, '_meps_services', true ) ? maybe_unserialize( get_post_meta( $post->ID, '_meps_services', true ) ) : array();
 
-?>
-            <style type="text/css">
-                .th__title {
-                    text-transform: capitalize;
-                    display: inline-block;
-                    min-width: 140px;
-                    font-weight: 700
-                }
+			?>
+			<style type="text/css">
+				.th__title {
+					text-transform: capitalize;
+					display: inline-block;
+					min-width: 140px;
+					font-weight: 700
+				}
 
-                ul.meps_container {
-                    border: 1px solid #ddd;
-                    padding: 20px;
-                    margin-bottom: 20px;
-                    border-radius: 3px;
-                }
+				ul.meps_container {
+					border: 1px solid #ddd;
+					padding: 20px;
+					margin-bottom: 20px;
+					border-radius: 3px;
+				}
 
-                ul.meps_container li {
-                    border-bottom: 1px dashed #ddd;
-                    padding: 5px 0 10px;
-                    color: #080808;
-                }
+				ul.meps_container li {
+					border-bottom: 1px dashed #ddd;
+					padding: 5px 0 10px;
+					color: #080808;
+				}
 
-                ul.meps_container li h3 {
-                    padding: 0;
-                    margin: 0;
-                    color: #555;
-                }
-            </style>
+				ul.meps_container li h3 {
+					padding: 0;
+					margin: 0;
+					color: #555;
+				}
+			</style>
 
-            <div class="meps-container">
-                <?php if ($order_extra_service['service']) :
-                    foreach ($order_extra_service['service'] as $service) : ?>
+			<div class="meps-container">
+				<?php
+				if ( $order_extra_service['service'] ) :
+					foreach ( $order_extra_service['service'] as $service ) :
+						?>
 
-                        <ul>
-                            <li>
-                                <h3><?php echo $service['title'] ?></h3>
-                            </li>
+						<ul>
+							<li>
+								<h3><?php echo esc_html( $service['title'] ); ?></h3>
+							</li>
 
-                            <?php if ($service['item']) :
-                                foreach ($service['item'] as $item) : ?>
-                                    <li><span class="th__title">Field:</span><?php echo $item; ?></li>
-                            <?php endforeach;
-                            endif; ?>
-                        </ul>
+							<?php
+							if ( $service['item'] ) :
+								foreach ( $service['item'] as $item ) :
+									?>
+									<li><span class="th__title">Field:</span><?php echo $item; ?></li>
+									<?php
+							endforeach;
+							endif;
+							?>
+						</ul>
 
-                <?php endforeach;
-                endif; ?>
-            </div>
+						<?php
+				endforeach;
+				endif;
+				?>
+			</div>
 
-        <?php
-        }
+			<?php
+		}
 
-        public function extra_data_dispaly_table_tr($order_id)
-        {
-            $order_extra_service = get_post_meta($order_id, '_meps_services', true) ? maybe_unserialize(get_post_meta($order_id, '_meps_services', true)) : array();
+		public function extra_data_dispaly_table_tr( $order_id ) {
+			$order_extra_service = get_post_meta( $order_id, '_meps_services', true ) ? maybe_unserialize( get_post_meta( $order_id, '_meps_services', true ) ) : array();
 
-            $total_es_price = 0;
-            if ($order_extra_service['service']) :
-                foreach ($order_extra_service['service'] as $service) :
-                    $total_es_price += $service['price'];
-                endforeach;
-            endif;
+			$total_es_price = 0;
+			if ( $order_extra_service['service'] ) :
+				foreach ( $order_extra_service['service'] as $service ) :
+					$total_es_price += $service['price'];
+				endforeach;
+			endif;
 
-        ?>
-            <tr>
-                <td class="label">Extra service price:</td>
-                <td width="1%"></td>
-                <td class="total"> 
-                    <?php echo wc_price($total_es_price); ?>
-                </td>
-            </tr>
+			?>
+			<tr>
+				<td class="label">Extra service price:</td>
+				<td width="1%"></td>
+				<td class="total"> 
+					<?php echo wc_price( $total_es_price ); ?>
+				</td>
+			</tr>
 
-<?php
-        }
-    }
+			<?php
+		}
+	}
 
-    new Meps_Admin_Order_Detail();
+	new Meps_Admin_Order_Detail();
 }

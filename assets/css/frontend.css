@@ -43,6 +43,7 @@
 .meps-service-item-content select {
     width: 100%;
     border: 1px solid #646464;
+    padding: 8px 0;
 }
 .meps-service-item-content .meps-desc {
     font-size: .8rem;
